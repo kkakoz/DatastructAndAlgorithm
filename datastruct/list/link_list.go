@@ -1,6 +1,6 @@
 package list
 
-type LinkList struct {
-	next *LinkList
-	data int
+type ListNode struct {
+	Val  int
+	Next *ListNode
 }
