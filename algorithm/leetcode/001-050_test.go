@@ -63,6 +63,21 @@ func TestAddTwoNumbers(t *testing.T) {
 	}
 }
 
+func TestLongestPalindrome(t *testing.T)  {
+	testData := []struct {
+		s   string
+		expect string
+	}{
+		// {"babad", "bab"},
+		{"cbbd", "bb"},
+	}
+	for _, data := range testData {
+		if longestPalindrome2(data.s) != data.expect {
+			t.Fatalf("s = %s, expect = %s", data.s, longestPalindrome2(data.s))
+		}
+	}
+}
+
 func TestLengthOfLongestSubstring(t *testing.T) {
 	testData := []struct {
 		s   string
@@ -122,9 +137,9 @@ func TestConvert(t *testing.T) {
 }
 
 func TestReverse(t *testing.T) {
-	testData := []struct{
+	testData := []struct {
 		param int
-		res int
+		res   int
 	}{
 		{123, 321},
 		{120, 21},
@@ -138,11 +153,42 @@ func TestReverse(t *testing.T) {
 	}
 }
 
-func TestIsPalindrome(t *testing.T)  {
+func TestIsPalindrome(t *testing.T) {
 	palindrome := isPalindrome(1001)
 	fmt.Println(palindrome)
 }
 
 func TestIsMatch(t *testing.T) {
 	isMatch("aab", "c*a*b")
+}
+
+func TestMaxArea(t *testing.T) {
+	area := maxArea([]int{1, 8, 6, 2, 5, 4, 8, 3, 7})
+	fmt.Println(area)
+}
+
+func TestLongestCommonPrefix(t *testing.T) {
+	testData := []struct {
+		in  []string
+		out string
+	}{
+		{
+			[]string{"flower", "flow", "flight"},
+			"fl",
+		},
+		{
+			[]string{"dog", "racecar", "car"},
+			"",
+		},
+	}
+	for _, data := range testData {
+		if res := longestCommonPrefix(data.in); res != data.out {
+			t.Fatalf("test err req = %s, res = %s, should be %s", data.in, res, data.out)
+		}
+	}
+}
+
+func TestABC(t *testing.T) {
+	index := isPalindrome125("A man, a plan, a canal: Panama")
+	fmt.Println(index)
 }

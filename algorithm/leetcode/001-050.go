@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-//twoSum 001 两数之和
+// twoSum 001 两数之和
 func twoSum(nums []int, target int) []int {
 	m := map[int]int{}
 	for i, v := range nums {
@@ -24,7 +24,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
-//addTwoNumbers 002 两数相加
+// addTwoNumbers 002 两数相加
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	l3 := &ListNode{}
 	var l1Val, l2Val int
@@ -65,7 +65,7 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	return l3
 }
 
-//lengthOfLongestSubstring 无重复字符的最长子串
+// lengthOfLongestSubstring 无重复字符的最长子串
 func lengthOfLongestSubstring(s string) int {
 	m := map[int32]struct{}{}
 	maxLen := 0
@@ -123,7 +123,58 @@ func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	}
 }
 
-//convert 006 Z
+// 005 最长回文字串 中心线方法
+func longestPalindrome(s string) string {
+	start, lontest := 0, 0
+	for mid := range s {
+		left, right := mid, mid
+		for left >= 0 && right < len(s) && s[left] == s[right] {
+			left, right = left-1, right+1
+		}
+		if right-left-1 > lontest {
+			lontest = right - left - 1
+			start = left + 1
+		}
+
+		left, right = mid, mid+1
+		for left >= 0 && right < len(s) && s[left] == s[right] {
+			left, right = left-1, right+1
+		}
+		if right-left-1 > lontest {
+			lontest = right - left - 1
+			start = left + 1
+		}
+	}
+	return s[start : start+lontest]
+}
+
+// 005 最长回文字串 动态规划
+func longestPalindrome2(s string) string {
+	isPalindrom := make([][]bool, len(s))
+	start, longtest := 0, 0
+	for i := range isPalindrom {
+		isPalindrom[i] = make([]bool, len(s))
+	}
+	for i := range s {
+		isPalindrom[i][i] = true
+	}
+	for i := 1; i < len(s); i++ {
+		isPalindrom[i][i-1] = true
+	}
+	for i := len(s) - 1; i > 0; i-- {
+		for j := i + 2; j < len(s); j++ {
+			isPalindrom[i][j] = isPalindrom[i+1][j-1] && s[i] == s[j]
+			if isPalindrom[i][j] && j-i+1 > longtest {
+				start = i
+				longtest = j - i + 1
+			}
+		}
+
+	}
+	return s[start : start+longtest]
+}
+
+// convert 006 Z
 func convert(s string, numRows int) string {
 	if numRows == 1 {
 		return s
@@ -152,7 +203,7 @@ func convert(s string, numRows int) string {
 	return strBuild.String()
 }
 
-//reverse 007 整数反转
+// reverse 007 整数反转
 func reverse(x int) int {
 	res := 0
 	for {
@@ -168,7 +219,7 @@ func reverse(x int) int {
 	}
 }
 
-//isPalindrome 回文数
+// isPalindrome 回文数
 func isPalindrome(x int) bool {
 	if x < 0 {
 		return false
@@ -177,19 +228,97 @@ func isPalindrome(x int) bool {
 	length := len(str)
 	midLength := length / 2
 	for i := 0; i < midLength; i++ {
-		if str[i] != str[length - i - 1] {
+		if str[i] != str[length-i-1] {
 			return false
 		}
 	}
 	return true
 }
 
-//isMatch 10 正则表达式匹配
+// isMatch 10 正则表达式匹配
 func isMatch(s string, p string) bool {
 	return false
 }
 
 // maxArea 12 最多水的容器
 func maxArea(height []int) int {
-	return 0
+	i := 0
+	j := len(height) - 1
+	max := 0
+	for {
+		if i >= j {
+			break
+		}
+		min := 0
+		if height[i] > height[j] {
+			min = height[j]
+		} else {
+			min = height[i]
+		}
+		res := min * (j - i)
+		if res > max {
+			max = res
+		}
+		if height[i] < height[j] {
+			i++
+		} else {
+			j--
+		}
+	}
+	return max
 }
+
+// longestCommonPrefix 14. 最长公共前缀
+func longestCommonPrefix(strs []string) string {
+	pre := ""
+	initPre := false
+	for _, v := range strs {
+		if !initPre {
+			initPre = true
+			pre = v
+			continue
+		}
+		for i, b := range pre {
+			if i >= len(v) || v[i] != uint8(b) {
+				pre = pre[:i]
+				break
+			}
+		}
+	}
+	return pre
+}
+
+// //threeSum 15. 三数之和
+// func threeSum(nums []int) [][]int {
+//	m := map[int][]int{}
+//	res := [][]int{}
+//	for i, num := range nums {
+//		temp := i
+//		for temp >= 0 {
+//			beforeNum := nums[temp]
+//			threeNum := 0 - beforeNum - num
+//			ints, ok := m[threeNum]
+//			if ok {
+//
+//			}
+//		}
+//	}
+// }
+
+// 028
+func strStr(haystack string, needle string) int {
+	if haystack == needle || needle == "" {
+		return 0
+	}
+	l := len(needle)
+	for i := range haystack {
+		if i+l > len(haystack) {
+			return -1
+		}
+		if haystack[i:i+l] == needle {
+			return i
+		}
+	}
+	return -1
+}
+
