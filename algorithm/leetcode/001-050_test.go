@@ -63,9 +63,9 @@ func TestAddTwoNumbers(t *testing.T) {
 	}
 }
 
-func TestLongestPalindrome(t *testing.T)  {
+func TestLongestPalindrome(t *testing.T) {
 	testData := []struct {
-		s   string
+		s      string
 		expect string
 	}{
 		// {"babad", "bab"},
@@ -188,7 +188,13 @@ func TestLongestCommonPrefix(t *testing.T) {
 	}
 }
 
-func TestABC(t *testing.T) {
-	index := isPalindrome125("A man, a plan, a canal: Panama")
-	fmt.Println(index)
+func TestThreeeSum(t *testing.T) {
+	in := []int{1, 4, 2, 5, 2, 1}
+	threeSum(in)
+}
+
+func TestN(t *testing.T) {
+	nums := []int{1, 3, 5, 6}
+	insert := searchInsert(nums, 1)
+	fmt.Println(insert)
 }

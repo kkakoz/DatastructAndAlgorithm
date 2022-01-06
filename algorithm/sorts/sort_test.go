@@ -1,6 +1,7 @@
 package sorts
 
 import (
+	"constraints"
 	"math/rand"
 	"testing"
 	"time"
@@ -10,7 +11,7 @@ var sortData []int
 
 var sortSizes = []int{1000, 10000, 50000}
 
-type SortFunc func(arr []int)
+type SortFunc[T constraints.Ordered] func(arr []T)
 
 func initSortData(dataLen int) {
 	rand.Seed(time.Now().Unix())
@@ -28,7 +29,7 @@ func TestMain(m *testing.M) {
 	}
 }
 
-func SortTest(f SortFunc, sortName string, t *testing.T)  {
+func SortTest(f SortFunc[int], sortName string, t *testing.T) {
 	size := len(sortData)
 	tempData := make([]int, size)
 	copy(tempData, sortData)
@@ -44,7 +45,7 @@ func SortTest(f SortFunc, sortName string, t *testing.T)  {
 
 func validateSortData(arr []int) bool {
 	for i := 1; i < len(arr); i++ {
-		if arr[i] < arr[i - 1] {
+		if arr[i] < arr[i-1] {
 			return false
 		}
 	}
@@ -72,7 +73,7 @@ func TestMergeSort2(t *testing.T) {
 }
 
 func TestQuickSort(t *testing.T) {
-	SortTest(QuickSort, "QuickSort", t)
+	SortTest(QuickSort[int], "QuickSort", t)
 }
 
 func TestBubbleSort(t *testing.T) {

@@ -1,7 +1,9 @@
 package leetcode
 
 import (
+	"fmt"
 	"math"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -65,7 +67,7 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	return l3
 }
 
-// lengthOfLongestSubstring 无重复字符的最长子串
+// lengthOfLongestSubstring 03无重复字符的最长子串
 func lengthOfLongestSubstring(s string) int {
 	m := map[int32]struct{}{}
 	maxLen := 0
@@ -90,6 +92,7 @@ func lengthOfLongestSubstring(s string) int {
 	return maxLen
 }
 
+// 004
 func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	length := len(nums1) + len(nums2)
 	mid := length / 2
@@ -288,22 +291,25 @@ func longestCommonPrefix(strs []string) string {
 	return pre
 }
 
-// //threeSum 15. 三数之和
-// func threeSum(nums []int) [][]int {
-//	m := map[int][]int{}
-//	res := [][]int{}
-//	for i, num := range nums {
-//		temp := i
-//		for temp >= 0 {
-//			beforeNum := nums[temp]
-//			threeNum := 0 - beforeNum - num
-//			ints, ok := m[threeNum]
-//			if ok {
-//
-//			}
-//		}
-//	}
-// }
+//threeSum 15. 三数之和
+func threeSum(nums []int) [][]int {
+	res := [][]int{}
+	if nums == nil || len(nums) < 3 {
+		return res
+	}
+	sort.Ints(nums)
+	length := 0
+	pre := nums[0]
+	for i := 1; i < len(nums); i++ {
+		if nums[i] != pre {
+			length++
+			nums[length] = nums[i]
+		}
+	}
+	nums = nums[0:length]
+	fmt.Println(nums)
+	return nil
+}
 
 // 028
 func strStr(haystack string, needle string) int {
@@ -322,3 +328,28 @@ func strStr(haystack string, needle string) int {
 	return -1
 }
 
+// 35 搜索插入位置
+func searchInsert(nums []int, target int) int {
+	left, right := 0, len(nums)-1
+	for left+1 < right {
+		mid := (left + right) / 2
+		if nums[mid] == target {
+			return mid
+		}
+		if nums[mid] > target {
+			right = mid
+		} else {
+			left = mid
+		}
+	}
+	if target <= nums[left] {
+		return left
+	}
+	if target <= nums[right] {
+		return right
+	}
+	if target > nums[right] {
+		return right + 1
+	}
+	return 0
+}

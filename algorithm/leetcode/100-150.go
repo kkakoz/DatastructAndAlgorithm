@@ -5,6 +5,38 @@ import (
 	"strings"
 )
 
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+// 104 二叉树最大深度
+func maxDepth(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	stack := []*TreeNode{}
+	stack = append(stack, root)
+	ans := 0
+	for len(stack) > 0 {
+		sz := len(stack)
+		for sz > 0 {
+			cur := stack[0]
+			stack = stack[1:]
+			if cur.Left != nil {
+				stack = append(stack, cur.Left)
+			}
+			if cur.Right != nil {
+				stack = append(stack, cur.Right)
+			}
+			sz--
+		}
+		ans++
+	}
+	return ans
+}
+
 // 125 验证回文串
 func isPalindrome125(s string) bool {
 	ss := strings.ToLower(s)
@@ -31,7 +63,7 @@ func isPalindrome125(s string) bool {
 }
 
 func IsVal(b byte) bool {
-	if (b < 'a' || b > 'z') && (b < 'A' || b > 'Z') && (b < '0' || b > '9'){
+	if (b < 'a' || b > 'z') && (b < 'A' || b > 'Z') && (b < '0' || b > '9') {
 		return false
 	}
 	return true
