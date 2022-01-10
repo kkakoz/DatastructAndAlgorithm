@@ -26,3 +26,17 @@ func firstBadVersion(n int) int {
 	}
 	return 0
 }
+
+// 283 移动零
+func moveZeroes(nums []int) {
+	i, j := 0, 0
+	for ; i < len(nums); i++ {
+		if nums[i] != 0 {
+			nums[j] = nums[i]
+			j++
+		}
+	}
+	for ; j < len(nums); j++ {
+		nums[j] = 0
+	}
+}

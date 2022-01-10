@@ -194,7 +194,24 @@ func TestThreeeSum(t *testing.T) {
 }
 
 func TestN(t *testing.T) {
-	nums := []int{1, 3, 5, 6}
-	insert := searchInsert(nums, 1)
-	fmt.Println(insert)
+	//head := &ListNode{
+	//	Val: 1,
+	//	Next: &ListNode{
+	//		Val: 2,
+	//		Next: &ListNode{
+	//			Val: 3,
+	//			Next: &ListNode{
+	//				Val: 4,
+	//				Next: &ListNode{
+	//					Val:  5,
+	//					Next: nil,
+	//				},
+	//			},
+	//		},
+	//	},
+	//}
+	head := &ListNode{1, nil}
+	node := removeNthFromEnd(head, 1)
+	fmt.Println(node)
+	//fmt.Printf("%+v, %+v, %+v, %+v", node, node.Next, node.Next.Next, node.Next.Next.Next)
 }
